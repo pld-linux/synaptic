@@ -79,7 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS INSTALL NEWS COPYING README TODO %{name}-hackers-guide.txt
+%doc AUTHORS INSTALL NEWS README TODO %{name}-hackers-guide.txt
 %attr(755,root,root) %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
 %{_datadir}/%{name}/help.txt
