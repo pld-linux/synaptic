@@ -8,6 +8,7 @@ Release:	1
 License:	GPL
 Group:		Applications/Archiving
 Source0:	ftp://ftp.conectiva.com/pub/conectiva/EXPERIMENTAL/synaptic/%{name}-%{version}.tar.gz
+# Source0-md5:	78855fe7940dc580116d1ed16800b809
 URL:		http://distro.conectiva.com/projetos/46/
 BuildRequires:	apt-devel >= 0.3.19cnc36
 BuildRequires:	WindowMaker-devel >= 0.65.0
