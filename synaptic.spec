@@ -14,8 +14,6 @@ BuildRequires:	WindowMaker-devel >= 0.65.0
 BuildRequires:	XFree86-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_prefix		/usr/X11R6
-%define		_mandir		%{_prefix}/man
 
 %description
 Synaptic is a graphical front-end for APT (Advanced Package Tool)
