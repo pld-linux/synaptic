@@ -1,14 +1,14 @@
 Summary:	WINGs based graphical front-end for APT
-Summary(pt_BR):	Front-end gráfico para APT baseado em WINGs
 Summary(es):	Front-end grafico para APT
 Summary(pl):	Bazuj±cy na WING graficzny interfejs do APTa
+Summary(pt_BR):	Front-end gráfico para APT baseado em WINGs
 Name:		synaptic
 Version:	0.16
 Release:	1
-URL:		http://distro.conectiva.com/projetos/46/
-Source0:	ftp://ftp.conectiva.com/pub/conectiva/EXPERIMENTAL/synaptic/%{name}-%{version}.tar.gz
 License:	GPL
 Group:		Applications/Archiving
+Source0:	ftp://ftp.conectiva.com/pub/conectiva/EXPERIMENTAL/synaptic/%{name}-%{version}.tar.gz
+URL:		http://distro.conectiva.com/projetos/46/
 BuildRequires:	apt-devel >= 0.3.19cnc36
 BuildRequires:	WindowMaker-devel >= 0.65.0
 BuildRequires:	XFree86-devel
@@ -37,16 +37,6 @@ on a powerful package filtering system. That greatly simplifies the
 interface while giving a lot more flexibility to browse through very
 long package lists.
 
-%description -l pt_BR
-Synaptic é um front-end gráfico para o APT (Advanced Package Tool)
-escrito com o toolkit do Window Maker. Seu objetivo é ser mais fácil
-de usar que outros front-ends do APT.
-
-Em vez de utilizar estruturas em árvore para mostrar os pacotes,
-Synaptic utiliza um sistema de filtro de pacotes, simplificando a
-interface e oferecendo mais flexibilidade quando houver um grande
-numero de pacotes listado.
-
 %description -l pl
 Synaptic jest graficznym frontendem dla APT napisany z u¿yciem
 toolkita WindowMakera. Synaptic próbuje byæ ³atwiejszym w u¿yciu ni¿
@@ -56,6 +46,16 @@ Zamiast u¿ywaj±c drzew do wy¶wietlania pakietów, Synaptic mocno bazuje
 na systemie filtrowania pakietów o ogromnych mo¿liwo¶ciach. To w
 ogromnym stopniu upraszcza interfejs równocze¶nie daj±c znacznie
 wiêksz± elastyczno¶æ podczas przegl±dania d³ugich list pakietów.
+
+%description -l pt_BR
+Synaptic é um front-end gráfico para o APT (Advanced Package Tool)
+escrito com o toolkit do Window Maker. Seu objetivo é ser mais fácil
+de usar que outros front-ends do APT.
+
+Em vez de utilizar estruturas em árvore para mostrar os pacotes,
+Synaptic utiliza um sistema de filtro de pacotes, simplificando a
+interface e oferecendo mais flexibilidade quando houver um grande
+numero de pacotes listado.
 
 %prep
 %setup -q
@@ -68,22 +68,24 @@ gzip -9nf AUTHORS INSTALL NEWS COPYING README TODO %{name}-hackers-guide.txt
 
 %install
 rm -rf $RPM_BUILD_ROOT
-rm -rf %{buildroot}
-install -d %{buildroot}%{_localstatedir}/lib/%{name}/
-install -D -m755 src/%{name} %{buildroot}/%{_bindir}/%{name}
-install -D help.txt %{buildroot}%{_datadir}/%{name}/help.txt
-install -D %{name}.1 %{buildroot}/%{_mandir}/man1/%{name}.1
-(cd po;make install prefix=%{buildroot}/%{_prefix})
+install -d $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}/
+install -D -m755 src/%{name} $RPM_BUILD_ROOT%{_bindir}/%{name}
+install -D help.txt $RPM_BUILD_ROOT%{_datadir}/%{name}/help.txt
+install -D %{name}.1 $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
+cd po
+%{__make} install prefix=$RPM_BUILD_ROOT%{_prefix}
+cd ..
+
 %find_lang %{name}
 
 %clean
-rm -rf %{buildroot}
+rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
+%doc AUTHORS.gz INSTALL.gz NEWS.gz COPYING.gz
+%doc README.gz TODO.gz %{name}-hackers-guide.txt.gz
 %attr(755,root,root) %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
 %{_datadir}/%{name}/help.txt
 %{_localstatedir}/lib/%{name}
-%doc AUTHORS.gz INSTALL.gz NEWS.gz COPYING.gz
-%doc README.gz TODO.gz %{name}-hackers-guide.txt.gz
