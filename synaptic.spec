@@ -65,12 +65,13 @@ numero de pacotes listado.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}/
-install -D -m755 src/%{name} $RPM_BUILD_ROOT%{_bindir}/%{name}
+install -d $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}
+install -D src/%{name} $RPM_BUILD_ROOT%{_bindir}/%{name}
 install -D help.txt $RPM_BUILD_ROOT%{_datadir}/%{name}/help.txt
 install -D %{name}.1 $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
 cd po
-%{__make} install prefix=$RPM_BUILD_ROOT%{_prefix}
+%{__make} install \
+	prefix=$RPM_BUILD_ROOT%{_prefix}
 cd ..
 
 %find_lang %{name}
@@ -83,5 +84,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS INSTALL NEWS README TODO %{name}-hackers-guide.txt
 %attr(755,root,root) %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
+%dir %{_datadir}/%{name}
 %{_datadir}/%{name}/help.txt
 %{_localstatedir}/lib/%{name}
