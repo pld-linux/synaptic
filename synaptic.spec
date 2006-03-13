@@ -62,6 +62,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+rm -f $RPM_BUILD_ROOT/etc/X11/sysconfig/synaptic.desktop
+
 %find_lang %{name}
 
 %clean
@@ -70,7 +72,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS INSTALL NEWS README TODO
-/etc/X11/sysconfig/synaptic.desktop
 %attr(755,root,root) %{_sbindir}/synaptic
 %{_desktopdir}/synaptic-kde.desktop
 %{_desktopdir}/synaptic.desktop
