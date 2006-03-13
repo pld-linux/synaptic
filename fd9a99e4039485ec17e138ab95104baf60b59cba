@@ -1,0 +1,2 @@
+- killed "-m 755" from %install
+- missing dir
