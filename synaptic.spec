@@ -1,78 +1,66 @@
-Summary:	WINGs based graphical front-end for APT
-Summary(es):	Front-end grafico para APT
-Summary(pl):	Bazuj±cy na WING graficzny interfejs do APTa
-Summary(pt_BR):	Front-end gráfico para APT baseado em WINGs
+#
+# Conditional build:
+%bcond_without	doc	# build documentation
+#
+Summary:	Graphical package management program for apt
 Name:		synaptic
-Version:	0.16
-Release:	1
+Version:	0.57.2
+Release:	0.3
 License:	GPL
 Group:		Applications/Archiving
-Source0:	ftp://ftp.conectiva.com/pub/conectiva/EXPERIMENTAL/synaptic/%{name}-%{version}.tar.gz
-# Source0-md5:	78855fe7940dc580116d1ed16800b809
-URL:		http://distro.conectiva.com/projetos/46/
-BuildRequires:	WindowMaker-devel >= 0.65.0
+Source0:	http://download.savannah.nongnu.org/releases/synaptic/%{name}-%{version}.tar.gz
+# Source0-md5:	dd753e953caa053279d342e3bc269128
+URL:		http://www.nongnu.org/synaptic/
 BuildRequires:	XFree86-devel
-BuildRequires:	apt-devel >= 0.3.19cnc36
+BuildRequires:	apt-devel >= 0.5.5
+BuildRequires:	atk-devel
+BuildRequires:	glib2-devel
+BuildRequires:	gtk+2-devel
+BuildRequires:	libart_lgpl-devel
+BuildRequires:	libglade2-devel
+BuildRequires:	libstdc++-devel
+BuildRequires:	libxml2-devel
+BuildRequires:	libzvt-devel
+BuildRequires:	pango-devel
+BuildRequires:	pkgconfig
+BuildRequires:	rpm-devel >= 4.1
+BuildRequires:	scrollkeeper
+%{?with_doc:BuildRequires:	xmlto}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-
 %description
-Synaptic is a graphical front-end for APT (Advanced Package Tool)
-written with the Window Maker toolkit. It attempts to be a lot easier
-to use than other existing APT front-ends.
+Synaptic is a graphical package management program for apt. It
+provides the same features as the apt-get command line utility with a
+GUI front-end based on Gtk+.
 
-Instead of using trees to display packages, Synaptic is heavily based
-on a powerful package filtering system. That greatly simplifies the
-interface while giving a lot more flexibility to browse through very
-long package lists.
-
-%description -l es
-Synaptic is a graphical front-end for APT (Advanced Package Tool)
-written with the Window Maker toolkit. It attempts to be a lot easier
-to use than other existing APT front-ends.
-
-Instead of using trees to display packages, Synaptic is heavily based
-on a powerful package filtering system. That greatly simplifies the
-interface while giving a lot more flexibility to browse through very
-long package lists.
-
-%description -l pl
-Synaptic jest graficznym frontendem dla APT napisany z u¿yciem
-toolkita WindowMakera. Synaptic próbuje byæ ³atwiejszym w u¿yciu ni¿
-inne istniej±ce frontendy dla APT.
-
-Zamiast u¿ywaj±c drzew do wy¶wietlania pakietów, Synaptic mocno bazuje
-na systemie filtrowania pakietów o ogromnych mo¿liwo¶ciach. To w
-ogromnym stopniu upraszcza interfejs równocze¶nie daj±c znacznie
-wiêksz± elastyczno¶æ podczas przegl±dania d³ugich list pakietów.
-
-%description -l pt_BR
-Synaptic é um front-end gráfico para o APT (Advanced Package Tool)
-escrito com o toolkit do Window Maker. Seu objetivo é ser mais fácil
-de usar que outros front-ends do APT.
-
-Em vez de utilizar estruturas em árvore para mostrar os pacotes,
-Synaptic utiliza um sistema de filtro de pacotes, simplificando a
-interface e oferecendo mais flexibilidade quando houver um grande
-numero de pacotes listado.
+Features:
+- Install, remove, upgrade and downgrade single and multiple packages.
+- Upgrade your whole system.
+- Manage package repositories (sources.list).
+- Find packages by name, description and several other attributes.
+- Select packages by status, section, name or a custom filter.
+- Sort packages by name, status, size or version.
+- Browse all available online documentation related to a package.
+- Download the latest changelog of a package.
+- Lock packages to the current version.
+- Force the installation of a specifc package version.
+- Undo/Redo of selections.
+- Built-in terminal emulator for the package manager.
+- Debian only: Configure packages through the debconf system.
 
 %prep
 %setup -q
 
 %build
-%configure2_13
+%configure \
+  --with-zvt \
+  %{?with_doc:--enable-docdir=%{_defaultdocdir}}
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}
-install -D src/%{name} $RPM_BUILD_ROOT%{_bindir}/%{name}
-install -D help.txt $RPM_BUILD_ROOT%{_datadir}/%{name}/help.txt
-install -D %{name}.1 $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
-cd po
 %{__make} install \
-	prefix=$RPM_BUILD_ROOT%{_prefix}
-cd ..
+	DESTDIR=$RPM_BUILD_ROOT
 
 %find_lang %{name}
 
@@ -81,9 +69,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS INSTALL NEWS README TODO %{name}-hackers-guide.txt
-%attr(755,root,root) %{_bindir}/%{name}
-%{_mandir}/man1/%{name}.1*
-%dir %{_datadir}/%{name}
-%{_datadir}/%{name}/help.txt
-%{_localstatedir}/lib/%{name}
+%doc AUTHORS INSTALL NEWS README TODO
+/etc/X11/sysconfig/synaptic.desktop
+%attr(755,root,root) %{_sbindir}/synaptic
+%{_desktopdir}/synaptic-kde.desktop
+%{_desktopdir}/synaptic.desktop
+%dir %{_datadir}/gnome/help/synaptic
+%{_datadir}/gnome/help/synaptic/C
+%lang(es) %{_datadir}/gnome/help/synaptic/es
+%{_mandir}/man8/synaptic.8*
+%{_datadir}/omf/synaptic/synaptic-C.omf
+%lang(es) %{_datadir}/omf/synaptic/synaptic-es.omf
+%{_pixmapsdir}/synaptic.png
+%{_datadir}/synaptic/glade
+%{_datadir}/synaptic/html
+%{_datadir}/synaptic/pixmaps
