@@ -54,7 +54,7 @@ Features:
 %build
 %configure \
   --with-zvt \
-  %{?with_doc:--enable-docdir=%{_defaultdocdir}}
+  %{?with_doc:--enable-docdir=%{_docdir}}
 %{__make}
 
 %install
