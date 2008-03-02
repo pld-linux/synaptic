@@ -82,6 +82,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/omf/synaptic/synaptic-C.omf
 %lang(es) %{_datadir}/omf/synaptic/synaptic-es.omf
 %{_pixmapsdir}/synaptic.png
+%dir %{_datadir}/synaptic
 %{_datadir}/synaptic/glade
 %{_datadir}/synaptic/html
 %{_datadir}/synaptic/pixmaps
