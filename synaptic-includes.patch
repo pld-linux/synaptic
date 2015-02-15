@@ -1,0 +1,113 @@
+--- synaptic-0.57.2/gtk/gsynaptic.cc.orig	2005-06-21 11:44:27.000000000 +0200
++++ synaptic-0.57.2/gtk/gsynaptic.cc	2015-02-15 17:27:02.298950060 +0100
+@@ -40,6 +40,8 @@
+ #include <fcntl.h>
+ #include <signal.h>
+ #include <cassert>
++#include <cstdlib>
++#include <cstring>
+ #include <errno.h>
+ #include <fstream>
+ 
+--- synaptic-0.57.2/gtk/rgaboutpanel.cc.orig	2005-05-20 20:24:35.000000000 +0200
++++ synaptic-0.57.2/gtk/rgaboutpanel.cc	2015-02-15 17:29:07.755611464 +0100
+@@ -23,6 +23,7 @@
+  */
+ 
+ #include <cassert>
++#include <cstring>
+ #include "config.h"
+ #include "rgaboutpanel.h"
+ #include "i18n.h"
+@@ -58,7 +59,7 @@
+    RGAboutPanel *me = (RGAboutPanel *) data;
+ 
+    if (me->credits == NULL) {
+-      me->credits = new RGCreditsPanel::RGCreditsPanel(me);
++      me->credits = new RGCreditsPanel(me);
+    }
+    me->credits->setTitle(_("Credits"));
+ 
+--- synaptic-0.57.2/gtk/rgpreferenceswindow.cc.orig	2005-06-08 17:14:30.000000000 +0200
++++ synaptic-0.57.2/gtk/rgpreferenceswindow.cc	2015-02-15 17:31:17.545606012 +0100
+@@ -28,6 +28,7 @@
+ #include <apt-pkg/configuration.h>
+ #include <gtk/gtk.h>
+ #include <cassert>
++#include <cstring>
+ 
+ #include "rconfiguration.h"
+ #include "rgpreferenceswindow.h"
+--- synaptic-0.57.2/gtk/rgfiltermanager.cc.orig	2005-05-20 20:24:35.000000000 +0200
++++ synaptic-0.57.2/gtk/rgfiltermanager.cc	2015-02-15 17:37:27.745590476 +0100
+@@ -25,6 +25,7 @@
+ 
+ #include <stdio.h>
+ #include <cassert>
++#include <cstring>
+ #include "config.h"
+ #include "rpackageview.h"
+ #include "rgfiltermanager.h"
+--- synaptic-0.57.2/gtk/rgfindwindow.cc.orig	2005-05-20 20:24:35.000000000 +0200
++++ synaptic-0.57.2/gtk/rgfindwindow.cc	2015-02-15 17:37:55.615589310 +0100
+@@ -23,6 +23,7 @@
+ #include "config.h"
+ 
+ #include <cassert>
++#include <cstring>
+ 
+ #include "rgfindwindow.h"
+ #include "rgmisc.h"
+--- synaptic-0.57.2/gtk/rglogview.cc.orig	2005-06-08 22:27:16.000000000 +0200
++++ synaptic-0.57.2/gtk/rglogview.cc	2015-02-15 17:54:35.048880700 +0100
+@@ -21,6 +21,7 @@
+  */
+ 
+ #include <cassert>
++#include <cstring>
+ #include <map>
+ #include "config.h"
+ #include "rglogview.h"
+--- synaptic-0.57.2/gtk/rgmisc.cc.orig	2005-05-20 20:24:35.000000000 +0200
++++ synaptic-0.57.2/gtk/rgmisc.cc	2015-02-15 17:55:38.048878057 +0100
+@@ -23,6 +23,8 @@
+ #include <X11/Xlib.h>
+ #include <gdk/gdkx.h>
+ #include <gtk/gtk.h>
++#include <cstdlib>
++#include <cstring>
+ #include <string>
+ #include "i18n.h"
+ #include "rgmisc.h"
+--- synaptic-0.57.2/gtk/rginstallprogress.cc.orig	2005-05-20 20:24:35.000000000 +0200
++++ synaptic-0.57.2/gtk/rginstallprogress.cc	2015-02-15 18:01:02.345531113 +0100
+@@ -30,6 +30,8 @@
+ #include <apt-pkg/configuration.h>
+ #include <gtk/gtk.h>
+ 
++#include <cstdlib>
++#include <cstring>
+ #include <unistd.h>
+ #include <stdio.h>
+ 
+--- synaptic-0.57.2/gtk/rgslideshow.cc.orig	2005-05-20 20:24:35.000000000 +0200
++++ synaptic-0.57.2/gtk/rgslideshow.cc	2015-02-15 18:01:33.268863148 +0100
+@@ -3,6 +3,7 @@
+ 
+ #include <gtk/gtk.h>
+ 
++#include <algorithm>
+ #include <string>
+ #include <vector>
+ 
+--- synaptic-0.57.2/gtk/rgterminstallprogress.cc.orig	2005-05-20 20:24:35.000000000 +0200
++++ synaptic-0.57.2/gtk/rgterminstallprogress.cc	2015-02-15 19:01:34.382045354 +0100
+@@ -37,6 +37,8 @@
+ #include <X11/Xlib.h>
+ #include <iostream>
+ #include <cerrno>
++#include <cstdlib>
++#include <cstring>
+ #include <unistd.h>
+ #include <sys/wait.h>
+ #include <sys/types.h>
